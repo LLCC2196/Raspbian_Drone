@@ -1,0 +1,24 @@
+cmake_minimum_required (VERSION 3.0)
+project (raspbain_pilot)
+
+aux_source_directory(. DIR_SRC)
+aux_source_directory(./assistant DIR_SRC)
+aux_source_directory(./hardware_driver/hmc5883l DIR_SRC)
+aux_source_directory(./hardware_driver/mpu9250 DIR_SRC)
+aux_source_directory(./hardware_driver/uart DIR_SRC)
+aux_source_directory(./hardware_driver/motor DIR_SRC)
+aux_source_directory(./hardware_driver/rc DIR_SRC)
+aux_source_directory(./AHRS DIR_SRC)
+aux_source_directory(./hardware_interface/hmc5883l_Interface DIR_SRC)
+aux_source_directory(./hardware_interface/mpu9250_Interface DIR_SRC)
+
+
+include_directories(./ ./assistant ./AHRS)
+include_directories(./hardware_driver/hmc5883l ./hardware_driver/mpu9250 ./hardware_driver/uart ./hardware_driver/motor ./hardware_driver/rc)
+include_directories(./hardware_interface/hmc5883l_interface ./hardware_interface/mpu9250_interface )
+
+set(MATHLIB libm.so)
+add_executable(rasp_pilot ${DIR_SRC})
+target_link_libraries(rasp_pilot ${MATHLIB})
+TARGET_LINK_LIBRARIES(rasp_pilot pthread)
+#TARGET_LINK_LIBRARIES(rasp_pilot wiringPi)
